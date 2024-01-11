@@ -1,0 +1,67 @@
+﻿@page "/localities/edit/{id:guid}"
+@inject ApplicationDbContext Context
+@inject NavigationManager Navigation
+@attribute [Authorize]
+@rendermode InteractiveServer
+
+<h1>Editar Localidade</h1>
+<EditForm Model="@Model" OnValidSubmit="OnValidSubmitAsync" FormName="localities-edit">
+  <DataAnnotationsValidator />
+  @* <ValidationSummary /> *@
+
+  <div class="mb-3">
+    <label class="form-label">Estado</label>
+    <InputSelect @bind-Value="Model.StateId" class="form-control">
+      @foreach (var state in States)
+      {
+        <option value="@state.Id">@state.Uf</option>
+      }
+    </InputSelect>
+    <ValidationMessage For="@(() => Model.StateId)" />
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Cidade</label>
+    <InputText @bind-Value="Model.City" class="form-control" />
+    <ValidationMessage For="@(() => Model.City)" />
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Código IBGE</label>
+    <InputText @bind-Value="Model.IbgeCode" class="form-control" />
+    <ValidationMessage For="@(() => Model.IbgeCode)" />
+  </div>
+
+  <button type="submit" class="btn btn-primary">
+    Salvar
+  </button>
+  <a href="/localities">Cancelar</a>
+</EditForm>
+
+@code {
+
+  [Parameter]
+  public Guid Id { get; set; }
+
+  public Locality Model { get; set; } = new();
+  public IEnumerable<State> States { get; set; } = Enumerable.Empty<State>();
+
+  protected override async void OnInitialized()
+  {
+    Model = await Context
+    .Localities
+    .FirstOrDefaultAsync(x => x.Id == Id) ?? new();
+
+    States = await Context
+    .States
+    .OrderBy(x => x.Uf)
+    .ToListAsync();
+  }
+
+  public async Task OnValidSubmitAsync()
+  {
+    Context.Localities.Update(Model);
+    await Context.SaveChangesAsync();
+    Navigation.NavigateTo("localities");
+  }
+}

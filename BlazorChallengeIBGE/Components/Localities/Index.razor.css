@@ -1,0 +1,118 @@
+﻿/* IBGE Challenge - Localities */
+
+::deep .quickgrid[theme="default"] .col-title {
+  gap: 0.5rem; /* Separate the sort indicator from title text */
+  text-transform: uppercase;
+  margin-top: 5px;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+::deep .quickgrid[theme="default"] .col-options-button {
+  margin-top: 1px;
+  margin-left: -8px;
+  padding-left: 0;
+}
+
+::deep .quickgrid[theme="default"] tbody tr td {
+  vertical-align: middle !important;
+}
+
+.grid-link {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.items-per-page {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-spacing {
+  margin: 2px;
+}
+
+.page-size-chooser {
+  display: flex;
+  align-items: center;
+}
+
+span {
+  margin-right: 5px;
+}
+
+.custom-select-sm {
+  width: 80px;
+}
+
+/* Style the custom page links*/
+.page-buttons {
+  margin: 1rem 0;
+  align-items: center;
+}
+
+.page-button {
+  background: #6c757d; /* Cor de fundo do botão */
+  color: white; /* Cor do texto do botão */
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.4rem;
+  transition: transform 0.3s ease-out;
+  margin: 0.25rem;
+  border: none; /* Remove a borda do botão */
+}
+
+.page-button:active {
+  background: #0d6efd !important; /* Cor de fundo do botão quando está ativo */
+  color: white; /* Cor do texto do botão quando está ativo */
+  transform: scale(0.95) translateY(-0.15rem);
+  transition-duration: 0.05s;
+}
+
+.page-button:hover:not(.current) {
+  background: #0d6efd; /* Cor de fundo do botão quando o mouse está sobre ele */
+}
+
+.page-button.current {
+  background: #0d6efd; /* Cor de fundo do botão quando é o botão atual */
+  color: white; /* Cor do texto do botão quando é o botão atual */
+}
+
+/* Ajuste para telas menores (dispositivos móveis) */
+@media (max-width: 767px) {
+  ::deep .quickgrid[theme="default"] .col-title,
+  ::deep .quickgrid[theme="default"] .col-options-button {
+    margin-top: 3px;
+  }
+
+  ::deep .quickgrid[theme="default"] .col-title {
+    text-transform: capitalize; /* Mudando para capitalizar para melhor leitura em telas menores */
+  }
+
+  /* Limita a tamanho das colunas */
+  ::deep .quickgrid[theme="default"] tbody tr td:nth-child(1) {
+    width: 5px;
+  }
+  ::deep .quickgrid[theme="default"] tbody tr td:nth-child(2) {
+    width: 15px;
+  }
+  ::deep .quickgrid[theme="default"] tbody tr td:nth-child(3) {
+    width: 5px;
+  }
+
+  .page-size-chooser {
+    flex-direction: column;
+  }
+
+  .custom-select-sm {
+    width: 100%; /* Utilizando largura total para melhorar em dispositivos móveis */
+    margin-top: 5px;
+  }
+
+  .page-buttons {
+    flex-direction: column;
+  }
+
+  .page-button {
+    margin: 0.25rem 0;
+  }
+}

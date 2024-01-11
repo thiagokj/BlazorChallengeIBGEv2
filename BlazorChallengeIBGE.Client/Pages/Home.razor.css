@@ -1,0 +1,27 @@
+h5 {
+  font-size: 1rem;
+}
+
+.ibge-logo img {
+  width: 200px; /* Defina a largura desejada */
+  height: auto; /* Mantém a proporção original da imagem */
+  max-height: 100px; /* Define a altura máxima desejada */
+  margin-bottom: 10px;
+}
+
+.demo-login {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin: 15px 0;
+  font-size: 1em;
+  color: #f1f1f1;
+  background: linear-gradient(to right, #014282, #37094a);
+}
+
+.demo-login p {
+  margin: 5px 0;
+}
+
+.demo-login p {
+  margin: 5px 0;
+}

@@ -1,0 +1,60 @@
+﻿@page "/localities/delete/{id:guid}"
+@inject ApplicationDbContext Context
+@inject NavigationManager Navigation
+@attribute [Authorize]
+@rendermode InteractiveServer
+
+@if (Model is null)
+{
+  <p class="text-center">
+    <em>Localidade não encontrada</em>
+  </p>
+}
+else
+{
+  <h1>Excluir Localidade</h1>
+  <EditForm Model="@Model" OnValidSubmit="OnValidSubmit" FormName="localities-delete">
+    <div class="mb-3">
+      <label class="form-label">Código IBGE</label>
+      <InputText @bind-Value="Model.IbgeCode" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Estado</label>
+      <InputText @bind-Value="Model.State.Uf" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Cidade</label>
+      <InputText @bind-Value="Model.City" class="form-control" readonly />
+    </div>
+
+    <button type="submit" class="btn btn-danger">
+      Excluir
+    </button>
+    <a href="/localities">Cancelar</a>
+  </EditForm>
+}
+
+@code {
+
+  [Parameter]
+  public Guid Id { get; set; }
+
+  public Locality? Model { get; set; }
+
+  protected override async Task OnInitializedAsync()
+  {
+    Model = await Context
+    .Localities
+    .Include(l => l.State)
+    .FirstOrDefaultAsync(x => x.Id == Id);
+  }
+
+  public async Task OnValidSubmit()
+  {
+    Context.Localities.Remove(Model!);
+    await Context.SaveChangesAsync();
+    Navigation.NavigateTo("localities");
+  }
+}

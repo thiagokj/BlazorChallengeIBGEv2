@@ -1,0 +1,55 @@
+﻿@page "/"
+@inject IJSRuntime JS
+@rendermode InteractiveAuto
+
+<PageTitle>Blazor | Desafio</PageTitle>
+
+<h1>Desafio Blazor</h1>
+
+<div>
+    <h5>Dev Team - Grupo 26: Cláudio Gabriel, Gabriel Tavares e Thiago Cajaíba.</h5>
+    <hr>
+</div>
+
+<div class="ibge-logo">
+    <img src="https://www.ibge.gov.br/templates/novo_portal_base/imagens/logo_mobile.png" alt="Logo IBGE">
+</div>
+
+<div>
+    <p>Olá Dev.</p>
+
+    <p>Esse projeto tem como objetivo simular o cadastro de localidades de forma enxuta,
+        informando o código do IBGE, sigla do estado e o município.</p>
+
+    <p>Fique a vontade para testar a demo com as credenciais abaixo:</p>
+
+    <div class="demo-login">
+        <p>
+            <button type="submit" @onclick="@(() => CopyText(@user))" class="btn">
+                <span>📋</span>
+            </button>
+            <strong>Usuário:</strong>
+            <span>@user</span>
+        </p>
+
+        <p>
+            <button type="submit" @onclick="@(() => CopyText(@pass))" class="btn">
+                <span>📋</span>
+            </button>
+            <strong>Senha:</strong>
+            <span>@pass</span>
+        </p>
+    </div>
+
+    <p>Todas as informações e estrutura do projeto podem ser consultadas no
+        <a href="https://github.com/thiagokj/BlazorChallengeIBGE" target="_blank">Github.</a>
+    </p>
+</div>
+
+@code {
+    private string user = "g26@balta.io";
+
+    private string pass = "G26@balta.io";
+
+    private async Task CopyText(string text) => await JS.InvokeVoidAsync("navigator.clipboard.writeText", text);
+}
